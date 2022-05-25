@@ -1,7 +1,18 @@
+const { cryptPassword } = require("../utility/encryptData");
+
 module.exports = mongoose => {
     var schema = mongoose.Schema(
       {
         name: String,
+        email:{
+          type:String,
+          unique : true
+        },
+        password:{
+          type:String,
+          set:cryptPassword,
+          required:true
+        },
         isManager: Boolean,
       },
       { timestamps: true }

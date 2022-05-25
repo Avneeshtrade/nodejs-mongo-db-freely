@@ -1,25 +1,15 @@
+const { validateToken } = require("../controllers/auth.controller");
+
 module.exports = app => {
     const employees = require("../controllers/employee.controller");
   
     var router = require("express").Router();
   
     // Create a new Tutorial
-    router.post("/",employees.create);
+    router.post("/",validateToken,employees.create);
   
     // Retrieve all Tutorials
-    router.get("/", employees.findAll);
-  
-    // Retrieve a single Tutorial with id
-    router.get("/:id", employees.findOne);
-  
-    // Update a Tutorial with id
-    router.put("/:id", employees.update);
-  
-    // Delete a Tutorial with id
-    router.delete("/:id", employees.delete);
-  
-    // Create a new Tutorial
-    router.delete("/", employees.deleteAll);
+    router.get("/", validateToken,employees.findAll);
   
     app.use("/api/employees", router);
   };
